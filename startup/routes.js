@@ -1,7 +1,7 @@
 const express = require('express');
-const students = require('../routes/students');
+const books = require('../routes/books');
 
 module.exports = function(app) {
   app.use(express.json());
-  app.use('/api/students', students);
+  app.use('/api/books', books);
 }
