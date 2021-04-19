@@ -7,13 +7,15 @@ const { Book } = require("../models/book");
 
 
 router.get("/", async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     console.log("api/book/");
     const booksList = await Book.find();
     res.status(200).send(booksList);
 });
 
 router.post("/create", async (req, res) => {
-  console.log("api/books/create");
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log("api/books/create");
 
     let book = new Book({
         title: req.body.title,
@@ -25,14 +27,16 @@ router.post("/create", async (req, res) => {
 });
 
 router.delete("/delete/:id", async (req, res) => {
-    console.log("api/books/delete/:"+req.params.id);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log("api/books/delete/:" + req.params.id);
 
-    await Book.deleteOne({_id:req.params.id});
+    await Book.deleteOne({ _id: req.params.id });
 
     res.status(200).send(req.params.id);
 });
 
 router.post("/get/:id", async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     console.log("api/books/get");
 
     let book = await Book.findById(req.params.id);
@@ -41,7 +45,8 @@ router.post("/get/:id", async (req, res) => {
 });
 
 router.put("/update/:id", async (req, res) => {
-  console.log("api/books/update");
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log("api/books/update");
 
     let book = {
         title: req.body.title,
@@ -49,8 +54,8 @@ router.put("/update/:id", async (req, res) => {
     };
     console.log(book);
     console.log(req.params.id);
-    
-    book = await Book.findOneAndUpdate({_id:req.params.id},book,{new:true});
+
+    book = await Book.findOneAndUpdate({ _id: req.params.id }, book, { new: true });
 
     res.send(book);
 });
